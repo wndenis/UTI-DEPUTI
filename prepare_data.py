@@ -179,9 +179,9 @@ def make_region_file():
                     if checkIfRegionExist(elem):
                         regionId = elem['main']['office']['region']['id']
                         if regionId not in result.keys():
-                            result[officeId] = [elem]
+                            result[regionId] = [elem]
                         else:
-                            result[officeId].append(elem)
+                            result[regionId].append(elem)
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
 
