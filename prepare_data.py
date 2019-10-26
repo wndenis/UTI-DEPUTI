@@ -88,6 +88,20 @@ def calc_sum():
         print(f"=== {year} ===")
         print(f"{year} \t {sum}")
 
+# Return only people's ids of specific region
+def calc_region_ids(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    idToSearch = str(idToSearch)
+    result = list()
+    if idToSearch in regions.keys():
+        for elem in regions[idToSearch]:
+            if checkPersonId(elem):
+                result.append(elem['main']['person']['id'])
+    return result
+
 
 # Calculate all incomes based on region (only relative null)
 def calc_sum_region(idToSearch):
@@ -108,6 +122,7 @@ def calc_sum_region(idToSearch):
         return totalIncomes
     else:
         return None
+
 
 # Calculate moves of certain officials and check if there're any trends
 def calc_moves():
@@ -184,6 +199,74 @@ def calc_region(id):
         return regions[idToSearch]
     else:
         return None
+
+# Calc medians of female/male incomes of a specific region
+# return dict('M': income, 'F': income). Default values - 0
+def calc_region_income_gender(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    medianIncomes = dict()
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if checkGender(elem) and checkPersonId(elem):
+                gender = elem['main']['person']['gender']
+                if gender in medianIncomes.keys():
+                    medianIncomes[gender].append(calcAllIncomes(elem))
+                else:
+                    medianIncomes[gender] = [calcAllIncomes(elem)]
+    print("--------------------- DEBUG --------------------- ")
+    print(medianIncomes)
+    print("--------------------- DEBUG --------------------- ")
+    medianIncomes['M'].sort()
+    medianIncomes['F'].sort()
+    if len(medianIncomes['M']) == 1:
+        medianIncomes['M'] = medianIncomes['M'][0]
+    if len(medianIncomes['F']) == 1:
+        medianIncomes['F'] = medianIncomes['F'][0]
+    if len(medianIncomes['M']) % 2 == 0:
+        index = len(medianIncomes['M']) // 2
+        medianIncomes['M'] = (medianIncomes['M'][index] + medianIncomes['M'][index - 1]) / 2
+    else:
+        index = len(medianIncomes['M']) // 2
+        medianIncomes['M'] = medianIncomes['M'][index]
+    if len(medianIncomes['F']) % 2 == 0:
+        index = len(medianIncomes['F']) // 2
+        medianIncomes['F'] = (medianIncomes['F'][index] + medianIncomes['F'][index - 1]) / 2
+    else:
+        index = len(medianIncomes['F']) // 2
+        medianIncomes['F'] = medianIncomes['F'][index]
+
+
+
+# True if gender exist
+def checkGender(elem):
+    if 'main' in elem:
+        if 'person' in elem['main']:
+            if 'gender' in elem['main']['person']:
+                return True
+    return False
+
+# True if id exist
+def checkPersonId(elem):
+    if 'main' in elem:
+        if 'person' in elem['main']:
+            if 'id' in elem['main']['person']:
+                return True
+    return False
+
+# Sum all incomes about human (only not relative)
+def calcAllIncomes(elem):
+    if 'incomes' in elem:
+        income = 0
+        for item in elem['incomes']:
+            if (not item['relative']):
+                income += item['size']
+        return income
+    return 0
+
 
 male_vs_female = calc_disbalance()
 total_sums_by_year = calc_sum()
