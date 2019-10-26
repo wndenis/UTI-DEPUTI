@@ -53,3 +53,8 @@ def common_fio(id):
     print("pat", max)
 
     return f"{com_s} {com_n} {com_p}"
+
+
+print(common_fio(59))
+print(common_fio(8))
+print(common_fio(90))

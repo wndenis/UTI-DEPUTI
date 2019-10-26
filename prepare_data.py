@@ -4,7 +4,7 @@ from datetime import datetime, date, time
 
 
 # with open("../declarations_sample.json", "r") as f:
-with open("declarations_sample2_coding.json", "r", encoding="utf-8") as f:
+with open("dec.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
@@ -189,7 +189,7 @@ def make_region_file():
 def checkIfRegionExist(elem):
     if 'office' in elem['main']:
         if 'region' in elem['main']['office']:
-            if 'id' in elem['main']['office']['region']:
+            if elem['main']['office']['region']:
                 return True
     return False
 
