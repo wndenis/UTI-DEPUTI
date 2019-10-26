@@ -174,18 +174,25 @@ def make_region_file():
         if 'main' in elem:
             # check if it's a valid year
             if 'year' in elem['main']:
-                todayYear = datetime.now().year
-                if (elem['main']['year'] == todayYear - 1 or elem['main']['year'] == todayYear - 2):
-                    if 'office' in elem['main']:
-                        if 'id' in elem['main']['office']:
-                            officeId = elem['main']['office']['id']
-                            if (officeId not in result.keys()):
-                                result[officeId] = [elem]
-                            else:
-                                result[officeId].append(elem)
+                todayYear = datetime.now().year - 2
+                if (elem['main']['year'] >= todayYear):
+                    if checkIfRegionExist(elem):
+                        regionId = elem['main']['office']['region']['id']
+                        if regionId not in result.keys():
+                            result[officeId] = [elem]
+                        else:
+                            result[officeId].append(elem)
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
 
+
+def checkIfRegionExist(elem):
+    if 'main' in elem:
+        if 'office' in elem:
+            if 'region' in elem:
+                if 'id' in elem:
+                    return True
+    return False
 
 # Calculate all deps in specific regions
 def calc_region(id):
