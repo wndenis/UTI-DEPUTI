@@ -95,8 +95,19 @@ def calc_sum_region(idToSearch):
         make_region_file()
     with open("static/json/region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
-    if (idToSearch in regions.keys()):
-        return None
+    totalIncomes = dict()
+    if (int(idToSearch) in regions.keys()):
+        for key, elem in regions.items():
+            if 'incomes' in elem:
+                income = 0
+                for item in elem['incomes']:
+                    if (not item['relative']):
+                        income += item['size']
+                if (int(key) not in totalIncomes.keys()):
+                    totalIncomes[int(key)] = [income]
+                else:
+                    totalIncomes[int(key)].append(income)
+        return totalIncomes
     else:
         return None
 
@@ -155,7 +166,7 @@ def make_region_file():
                 if (elem['main']['year'] == todayYear - 1 or elem['main']['year'] == todayYear - 2):
                     if 'office' in elem['main']:
                         if 'id' in elem['main']['office']:
-                            officeId = elem['main']['office']['id']
+                            officeId = int(elem['main']['office']['id'])
                             if (officeId not in result.keys()):
                                 result[officeId] = [elem]
                             else:
@@ -170,7 +181,7 @@ def calc_region(idToSearch):
         make_region_file()
     with open("static/json/region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
-    if (idToSearch in regions.keys()):
+    if (int(idToSearch) in regions.keys()):
         return regions[idToSearch]
     else:
         return None

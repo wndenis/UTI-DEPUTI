@@ -12,9 +12,9 @@ def index():
 def salary():
     return render_template('lesser_salary.html', years=total_sums_by_year[0], sums=total_sums_by_year[1])
 
-@app.route('region/<str:id>', methods=['GET', 'POST'])
+@app.route('region/<int:id>', methods=['GET', 'POST'])
 def region(id):
-    return render_template('region.html', region=calc_region(id))
+    return render_template('region.html', region=calc_region(int(id)))
 
 if __name__ == "__main__":
     app.run(debug=True)
