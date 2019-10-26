@@ -2,7 +2,7 @@ import json
 import os.path
 
 # with open("../declarations_sample.json", "r") as f:
-with open("declarations_sample2_coding.json", "r", encoding="utf-8") as f:
+with open("static/json/declarations_sample2_coding.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
@@ -160,9 +160,9 @@ def calc_region(idToSearch):
 
 print(calc_region('543'))
 
-# male_vs_female = calc_disbalance()
-# total_sums_by_year = calc_sum()
-# moves = calc_moves()
+male_vs_female = calc_disbalance()
+total_sums_by_year = calc_sum()
+moves = calc_moves()
 
 
 # with open("static/json/disbalance.json", "w") as f:
