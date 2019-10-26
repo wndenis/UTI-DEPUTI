@@ -1,7 +1,8 @@
 import json
+import os.path
 
 # with open("../declarations_sample.json", "r") as f:
-with open("./static/json/dec_full.json", "r", encoding="utf-8") as f:
+with open("declarations_sample2_coding.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
@@ -131,16 +132,44 @@ def calc_moves():
             print(f"{destination} <-- {origin}: {occurances}")
 
 
-male_vs_female = calc_disbalance()
-total_sums_by_year = calc_sum()
-moves = calc_moves()
+def make_region_file():
+    result = dict()
+    for elem in data:
+        if 'main' in elem:
+            if 'office' in elem['main']:
+                if 'id' in elem['main']['office']:
+                    officeId = elem['main']['office']['id']
+                    if (officeId not in result.keys()):
+                        result[officeId] = [elem]
+                    else:
+                        result[officeId].append(elem)
+    with open("static/json/region.json", "w") as f:
+        json.dump(result, f)
 
 
-with open("static/json/disbalance.json", "w") as f:
-    json.dump(calc_disbalance(), f)
+# Calculate all deps in specific regions
+def calc_region(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    if (idToSearch in regions.keys()):
+        return regions[idToSearch]
+    else:
+        return None
 
-with open("static/json/sum.json", "w") as f:
-    json.dump(calc_sum(), f)
+print(calc_region('543'))
 
-with open("static/json/moves.json", "w") as f:
-    json.dump(calc_moves(), f)
+# male_vs_female = calc_disbalance()
+# total_sums_by_year = calc_sum()
+# moves = calc_moves()
+
+
+# with open("static/json/disbalance.json", "w") as f:
+#     json.dump(calc_disbalance(), f)
+
+# with open("static/json/sum.json", "w") as f:
+#     json.dump(calc_sum(), f)
+
+# with open("static/json/moves.json", "w") as f:
+#     json.dump(calc_moves(), f)
