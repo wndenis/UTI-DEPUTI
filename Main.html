@@ -12,11 +12,28 @@
     <link rel="stylesheet" href="styles/beautifulRange.css" />
     <link rel="stylesheet" href="Design.css" />
     <link rel="stylesheet" href="styles/main.css" />
+    <script type="text/javascript" src="js/rusmap.js"></script>
+    <script>
+      $(function() {
+          $('#rusmap').rusmap({
+              width: 650,
+              height: 350,
+              mapUrl: "/static/map/russia.json",
+              dataUrl: "/regions_map_codes/"
+          });
+
+          $(".tooltip-target").tooltip({
+              html: true,
+          });
+          
+      });
+  </script>
+   <link href="styles/rusmap.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
     <!-- Title -->
     <h1 align="center">UTI-DEPUTI</h1>
-
+    <a href="pages/regions/regions.html">Regions</a>
     <!-- Background div -->
     <div class="bg_div">
       <canvas id="field"></canvas>
@@ -54,5 +71,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/beautifulRange.js"></script>
+    <div id="rusmap" style="margin-top: 10px; margin-bottom: 10px; display: inline-block;">
+    </div>
   </body>
 </html>

@@ -31,6 +31,10 @@ if (getUrlParameter("accel")) {
 function Star() {
   this.X = field.width / 2;
   this.Y = field.height / 2;
+  
+  //this.document.createElement("img");
+  //this.document.setAttribute("src", "Pictures/CarSiren.gif");
+
 
   this.SX = Math.random() * 10 - 5;
   this.SY = Math.random() * 10 - 5;
@@ -53,7 +57,7 @@ function Star() {
   stars[starIndex] = this;
 
   this.ID = starIndex;
-  this.C = "#ffffff";
+  this.C = "#fff111";
 }
 
 Star.prototype.Draw = function() {
