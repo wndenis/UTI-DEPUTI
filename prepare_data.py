@@ -1,5 +1,7 @@
 import json
 import os.path
+from datetime import datetime, date, time
+
 
 # with open("../declarations_sample.json", "r") as f:
 with open("declarations_sample2_coding.json", "r", encoding="utf-8") as f:
@@ -87,6 +89,17 @@ def calc_sum():
         print(f"{year} \t {sum}")
 
 
+# Calculate all incomes based on region (only relative null)
+def calc_sum_region(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    if (idToSearch in regions.keys()):
+        return None
+    else:
+        return None
+
 # Calculate moves of certain officials and check if there're any trends
 def calc_moves():
 
@@ -136,13 +149,17 @@ def make_region_file():
     result = dict()
     for elem in data:
         if 'main' in elem:
-            if 'office' in elem['main']:
-                if 'id' in elem['main']['office']:
-                    officeId = elem['main']['office']['id']
-                    if (officeId not in result.keys()):
-                        result[officeId] = [elem]
-                    else:
-                        result[officeId].append(elem)
+            # check if it's a valid year
+            if 'year' in elem['main']:
+                todayYear = datetime.now().year
+                if (elem['main']['year'] == todayYear - 1 or elem['main']['year'] == todayYear - 2):
+                    if 'office' in elem['main']:
+                        if 'id' in elem['main']['office']:
+                            officeId = elem['main']['office']['id']
+                            if (officeId not in result.keys()):
+                                result[officeId] = [elem]
+                            else:
+                                result[officeId].append(elem)
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
 
@@ -158,12 +175,9 @@ def calc_region(idToSearch):
     else:
         return None
 
-print(calc_region('543'))
-
-# male_vs_female = calc_disbalance()
-# total_sums_by_year = calc_sum()
-# moves = calc_moves()
-
+male_vs_female = calc_disbalance()
+total_sums_by_year = calc_sum()
+moves = calc_moves()
 
 # with open("static/json/disbalance.json", "w") as f:
 #     json.dump(calc_disbalance(), f)
