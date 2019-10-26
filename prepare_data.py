@@ -1,5 +1,7 @@
 import json
 import os.path
+from datetime import datetime, date, time
+
 
 # with open("../declarations_sample.json", "r") as f:
 with open("static/json/declarations_sample2_coding.json", "r", encoding="utf-8") as f:
@@ -8,7 +10,6 @@ with open("static/json/declarations_sample2_coding.json", "r", encoding="utf-8")
 # Calculate deputies' disbalance in income;
 # bigger positive value means man earned more than their spouses in the particular region;
 # negative values show that women earned more
-
 def calc_disbalance():
     stats = {}
 
@@ -58,7 +59,6 @@ def calc_disbalance():
         for region, dom in stats[year].items():
             print(region, dom)
 
-
 # Calculate the overall sum taxpayers payed the deputies (count only their own income)
 def calc_sum():
     stats = {}
@@ -77,7 +77,7 @@ def calc_sum():
             stats[year] += income
         else:
             stats[year] = income
-    print(stats.items())
+    # print(stats.items())
     stats2 = sorted(list(stats.items()), key=lambda x: x[0])
     return stats2
 
@@ -86,6 +86,39 @@ def calc_sum():
         print(f"=== {year} ===")
         print(f"{year} \t {sum}")
 
+# Return only people's ids of specific region
+def calc_region_ids(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    idToSearch = str(idToSearch)
+    result = list()
+    if idToSearch in regions.keys():
+        for elem in regions[idToSearch]:
+            if checkPersonId(elem):
+                result.append(elem['main']['person']['id'])
+    return result
+
+# Calculate all incomes based on region (only relative null)
+def calc_sum_region(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    totalIncomes = []
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if 'incomes' in elem:
+                income = 0
+                for item in elem['incomes']:
+                    if (not item['relative']):
+                        income += item['size']
+                totalIncomes.append(income)
+        return totalIncomes
+    else:
+        return None
 
 # Calculate moves of certain officials and check if there're any trends
 def calc_moves():
@@ -131,39 +164,137 @@ def calc_moves():
         for origin, occurances in moves[destination].items():
             print(f"{destination} <-- {origin}: {occurances}")
 
-
+# Create static/json/region.json file
 def make_region_file():
     result = dict()
     for elem in data:
         if 'main' in elem:
-            if 'office' in elem['main']:
-                if 'id' in elem['main']['office']:
-                    officeId = elem['main']['office']['id']
-                    if (officeId not in result.keys()):
-                        result[officeId] = [elem]
-                    else:
-                        result[officeId].append(elem)
+            # check if it's a valid year
+            if 'year' in elem['main']:
+                todayYear = datetime.now().year - 2
+                if (elem['main']['year'] >= todayYear):
+                    if checkIfRegionExist(elem):
+                        regionId = elem['main']['office']['region']['id']
+                        if regionId not in result.keys():
+                            result[regionId] = [elem]
+                        else:
+                            result[regionId].append(elem)
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
 
+# If field 'main''office''region''if' exist - True
+def checkIfRegionExist(elem):
+    if 'office' in elem['main']:
+        if 'region' in elem['main']['office']:
+            if elem['main']['office']['region']:
+                return True
+    return False
 
 # Calculate all deps in specific regions
-def calc_region(idToSearch):
+def calc_region(id):
+    idToSearch = str(id)
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
     with open("static/json/region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
-    if (idToSearch in regions.keys()):
+    if idToSearch in regions.keys():
         return regions[idToSearch]
     else:
         return None
 
-print(calc_region('543'))
+# Calc medians of female/male incomes of a specific region
+# return dict('M': income, 'F': income). Default values - 0
+def calc_region_income_gender(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    medianIncomes = dict()
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if checkGender(elem) and checkPersonId(elem):
+                gender = elem['main']['person']['gender']
+                if gender in medianIncomes.keys():
+                    medianIncomes[gender].append(calcAllIncomes(elem))
+                else:
+                    medianIncomes[gender] = [calcAllIncomes(elem)]
+    # print("--------------------- DEBUG --------------------- ")
+    # print(medianIncomes)
+    # print("--------------------- DEBUG --------------------- ")
+    medianIncomes['M'].sort()
+    medianIncomes['F'].sort()
+    if len(medianIncomes['M']) == 1:
+        medianIncomes['M'] = medianIncomes['M'][0]
+    if len(medianIncomes['F']) == 1:
+        medianIncomes['F'] = medianIncomes['F'][0]
+    if len(medianIncomes['M']) % 2 == 0:
+        index = len(medianIncomes['M']) // 2
+        medianIncomes['M'] = (medianIncomes['M'][index] + medianIncomes['M'][index - 1]) / 2
+    else:
+        index = len(medianIncomes['M']) // 2
+        medianIncomes['M'] = medianIncomes['M'][index]
+    if len(medianIncomes['F']) % 2 == 0:
+        index = len(medianIncomes['F']) // 2
+        medianIncomes['F'] = (medianIncomes['F'][index] + medianIncomes['F'][index - 1]) / 2
+    else:
+        index = len(medianIncomes['F']) // 2
+        medianIncomes['F'] = medianIncomes['F'][index]
+    return medianIncomes
+    
+# True if gender exist
+def checkGender(elem):
+    if 'main' in elem:
+        if 'person' in elem['main']:
+            if 'gender' in elem['main']['person']:
+                return True
+    return False
+
+# True if id exist
+def checkPersonId(elem):
+    if 'main' in elem:
+        if 'person' in elem['main']:
+            if 'id' in elem['main']['person']:
+                return True
+    return False
+
+# Sum all incomes about human (only not relative)
+def calcAllIncomes(elem):
+    if 'incomes' in elem:
+        income = 0
+        for item in elem['incomes']:
+            if (not item['relative']):
+                income += item['size']
+        return income
+    return 0
+
+# Return dict with keys 'M', 'F' and values - Man's and Women's ids
+# in specific region
+def calc_region_gender_ids(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    people = dict()
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if checkGender(elem) and checkPersonId(elem):
+                gender = elem['main']['person']['gender']
+                if gender in people.keys():
+                    people[gender].append(elem['main']['person']['id'])
+                else:
+                    people[gender] = [elem['main']['person']['id']]
+    if ('M' not in people.keys()):
+        people['M'] = []
+    if ('F' not in people.keys()):
+        people['F'] = []
+    return people
+
 
 male_vs_female = calc_disbalance()
 total_sums_by_year = calc_sum()
 moves = calc_moves()
-
 
 # with open("static/json/disbalance.json", "w") as f:
 #     json.dump(calc_disbalance(), f)
