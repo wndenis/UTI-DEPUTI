@@ -4,7 +4,7 @@ from datetime import datetime, date, time
 
 
 # with open("../declarations_sample.json", "r") as f:
-with open("static/json/declarations_sample2_coding.json", "r", encoding="utf-8") as f:
+with open("static/json/dec.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
