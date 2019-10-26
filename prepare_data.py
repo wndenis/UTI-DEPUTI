@@ -185,13 +185,12 @@ def make_region_file():
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
 
-
+# If field 'main''office''region''if' exist - True
 def checkIfRegionExist(elem):
-    if 'main' in elem:
-        if 'office' in elem:
-            if 'region' in elem:
-                if 'id' in elem:
-                    return True
+    if 'office' in elem:
+        if 'region' in elem:
+            if 'id' in elem:
+                return True
     return False
 
 # Calculate all deps in specific regions
