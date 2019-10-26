@@ -51,7 +51,7 @@ def med_region_real_estate(id):
             res = arr[0]
         elif n % 2 == 0:
             mid = n // 2
-            res = (arr[mid] + arr[mid + 1] ) / 2
+            res = (arr[mid] + arr[mid - 1] ) / 2
         else:
             mid = n // 2
             res = arr[mid]
