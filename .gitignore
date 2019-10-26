@@ -1,2 +1,4 @@
 .vscode/
-static/json/*
+.idea/
+static/json/*.json
+static/faces/*.jpg
