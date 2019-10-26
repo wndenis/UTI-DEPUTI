@@ -4,7 +4,7 @@ from datetime import datetime, date, time
 
 
 # with open("../declarations_sample.json", "r") as f:
-with open("dec.json", "r", encoding="utf-8") as f:
+with open("declarations_sample2_coding.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
@@ -59,7 +59,6 @@ def calc_disbalance():
         for region, dom in stats[year].items():
             print(region, dom)
 
-
 # Calculate the overall sum taxpayers payed the deputies (count only their own income)
 def calc_sum():
     stats = {}
@@ -101,7 +100,6 @@ def calc_region_ids(idToSearch):
                 result.append(elem['main']['person']['id'])
     return result
 
-
 # Calculate all incomes based on region (only relative null)
 def calc_sum_region(idToSearch):
     if (not os.path.exists('static/json/region.json')):
@@ -121,7 +119,6 @@ def calc_sum_region(idToSearch):
         return totalIncomes
     else:
         return None
-
 
 # Calculate moves of certain officials and check if there're any trends
 def calc_moves():
@@ -167,7 +164,7 @@ def calc_moves():
         for origin, occurances in moves[destination].items():
             print(f"{destination} <-- {origin}: {occurances}")
 
-
+# Create static/json/region.json file
 def make_region_file():
     result = dict()
     for elem in data:
@@ -270,6 +267,29 @@ def calcAllIncomes(elem):
                 income += item['size']
         return income
     return 0
+
+# Return dict with keys 'M', 'F' and values - Man's and Women's ids
+# in specific region
+def calc_region_gender_ids(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    people = dict()
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if checkGender(elem) and checkPersonId(elem):
+                gender = elem['main']['person']['gender']
+                if gender in people.keys():
+                    people[gender].append(elem['main']['person']['id'])
+                else:
+                    people[gender] = [elem['main']['person']['id']]
+    if ('M' not in people.keys()):
+        people['M'] = []
+    if ('F' not in people.keys()):
+        people['F'] = []
+    return people
 
 
 male_vs_female = calc_disbalance()
