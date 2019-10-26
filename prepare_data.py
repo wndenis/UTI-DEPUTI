@@ -1,7 +1,7 @@
 import json
 
 # with open("../declarations_sample.json", "r") as f:
-with open("../dec.json", "r") as f:
+with open("./static/json/dec.json", "r") as f:
     data = json.load(f)
 
 
@@ -139,6 +139,12 @@ def calc_moves():
             print(f"{destination} <-- {origin}: {occurances}")
 
 
-print(calc_disbalance())
-print(calc_sum())
-print(calc_moves())
+
+with open("static/json/disbalance.json", "w") as f:
+    json.dump(calc_disbalance(), f)
+
+with open("static/json/sum.json", "w") as f:
+    json.dump(calc_sum(), f)
+
+with open("static/json/moves.json", "w") as f:
+    json.dump(calc_moves(), f)
