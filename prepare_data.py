@@ -1,15 +1,13 @@
 import json
 
 # with open("../declarations_sample.json", "r") as f:
-with open("./static/json/dec.json", "r") as f:
+with open("./static/json/dec_full.json", "r", encoding="utf-8") as f:
     data = json.load(f)
-
-
-
 
 # Calculate deputies' disbalance in income;
 # bigger positive value means man earned more than their spouses in the particular region;
-# negative values show that women earned more 
+# negative values show that women earned more
+
 def calc_disbalance():
     stats = {}
 
@@ -60,10 +58,6 @@ def calc_disbalance():
             print(region, dom)
 
 
-
-
-
-
 # Calculate the overall sum taxpayers payed the deputies (count only their own income)
 def calc_sum():
     stats = {}
@@ -82,16 +76,14 @@ def calc_sum():
             stats[year] += income
         else:
             stats[year] = income
-
-    return stats
+    print(stats.items())
+    stats2 = sorted(list(stats.items()), key=lambda x: x[0])
+    return stats2
 
     # Print for debug
     for year, sum in stats.items():
         print(f"=== {year} ===")
         print(f"{year} \t {sum}")
-
-
-
 
 
 # Calculate moves of certain officials and check if there're any trends
@@ -138,6 +130,10 @@ def calc_moves():
         for origin, occurances in moves[destination].items():
             print(f"{destination} <-- {origin}: {occurances}")
 
+
+male_vs_female = calc_disbalance()
+total_sums_by_year = calc_sum()
+moves = calc_moves()
 
 
 with open("static/json/disbalance.json", "w") as f:

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>С миру по нитке</title>
+{% endblock %}
+
+{% block body %}
+    <script type="text/javascript">
+    alert(parseInt({{ sums[0][0] }}) * 2)
+    </script>
+
+    {% for elem in sums %}
+        <h1>Год: {{elem[0]}} Всего денег: {{ "%.0f," % elem[1] }} рублей</h1>
+
+    {% endfor %}
+{% endblock %}
