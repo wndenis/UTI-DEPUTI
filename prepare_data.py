@@ -238,8 +238,7 @@ def calc_region_income_gender(idToSearch):
         index = len(medianIncomes['F']) // 2
         medianIncomes['F'] = medianIncomes['F'][index]
     return medianIncomes
-
-
+    
 # True if gender exist
 def checkGender(elem):
     if 'main' in elem:
