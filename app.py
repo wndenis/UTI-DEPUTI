@@ -10,7 +10,7 @@ def index():
 
 @app.route('/lesser_salary', methods=['GET', 'POST'])
 def salary():
-    return render_template('lesser_salary.html', sums=total_sums_by_year)
+    return render_template('lesser_salary.html', years=total_sums_by_year[0], sums=total_sums_by_year[1])
 
 @app.route('region/<str:id>', methods=['GET', 'POST'])
 def region(id):
