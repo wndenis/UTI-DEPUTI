@@ -4,13 +4,12 @@ from datetime import datetime, date, time
 
 
 # with open("../declarations_sample.json", "r") as f:
-with open("declarations_sample2_coding", "r", encoding="utf-8") as f:
+with open("declarations_sample2_coding.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
 # bigger positive value means man earned more than their spouses in the particular region;
 # negative values show that women earned more
-
 def calc_disbalance():
     stats = {}
 
@@ -217,9 +216,9 @@ def calc_region_income_gender(idToSearch):
                     medianIncomes[gender].append(calcAllIncomes(elem))
                 else:
                     medianIncomes[gender] = [calcAllIncomes(elem)]
-    print("--------------------- DEBUG --------------------- ")
-    print(medianIncomes)
-    print("--------------------- DEBUG --------------------- ")
+    # print("--------------------- DEBUG --------------------- ")
+    # print(medianIncomes)
+    # print("--------------------- DEBUG --------------------- ")
     medianIncomes['M'].sort()
     medianIncomes['F'].sort()
     if len(medianIncomes['M']) == 1:
@@ -238,7 +237,7 @@ def calc_region_income_gender(idToSearch):
     else:
         index = len(medianIncomes['F']) // 2
         medianIncomes['F'] = medianIncomes['F'][index]
-
+    return medianIncomes
 
 
 # True if gender exist
