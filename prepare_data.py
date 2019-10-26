@@ -176,12 +176,13 @@ def make_region_file():
 
 
 # Calculate all deps in specific regions
-def calc_region(idToSearch):
+def calc_region(id):
+    idToSearch = str(id)
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
     with open("static/json/region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
-    if (int(idToSearch) in regions.keys()):
+    if idToSearch in regions.keys():
         return regions[idToSearch]
     else:
         return None
