@@ -187,9 +187,9 @@ def make_region_file():
 
 # If field 'main''office''region''if' exist - True
 def checkIfRegionExist(elem):
-    if 'office' in elem:
-        if 'region' in elem:
-            if 'id' in elem:
+    if 'office' in elem['main']:
+        if 'region' in elem['main']['office']:
+            if 'id' in elem['main']['office']['region']:
                 return True
     return False
 
