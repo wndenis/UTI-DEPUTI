@@ -209,7 +209,7 @@ def calc_region_income_gender(idToSearch):
         make_region_file()
     with open("static/json/region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
-    medianIncomes = dict()
+    medianIncomes = {"M":[], "F":[]}
     idToSearch = str(idToSearch)
     if (idToSearch in regions.keys()):
         for elem in regions[idToSearch]:
@@ -220,25 +220,28 @@ def calc_region_income_gender(idToSearch):
                 else:
                     medianIncomes[gender] = [calcAllIncomes(elem)]
     # print("--------------------- DEBUG --------------------- ")
-    # print(medianIncomes)
+    # print(medianIncomes.keys())
+    # print(regions.keys())
     # print("--------------------- DEBUG --------------------- ")
+    medianIncomes['M'].append(0)
     medianIncomes['M'].sort()
+
+    medianIncomes['F'].append(0)
     medianIncomes['F'].sort()
-    if len(medianIncomes['M']) == 1:
-        medianIncomes['M'] = medianIncomes['M'][0]
-    if len(medianIncomes['F']) == 1:
-        medianIncomes['F'] = medianIncomes['F'][0]
-    if len(medianIncomes['M']) % 2 == 0:
-        index = len(medianIncomes['M']) // 2
+    len_m = len(medianIncomes['M'])
+    len_f = len(medianIncomes['F'])
+    if len_m % 2 == 0:
+        index = len_m // 2
         medianIncomes['M'] = (medianIncomes['M'][index] + medianIncomes['M'][index - 1]) / 2
     else:
-        index = len(medianIncomes['M']) // 2
+        index = len_m // 2
         medianIncomes['M'] = medianIncomes['M'][index]
-    if len(medianIncomes['F']) % 2 == 0:
-        index = len(medianIncomes['F']) // 2
+
+    if len_f % 2 == 0:
+        index = len_f // 2
         medianIncomes['F'] = (medianIncomes['F'][index] + medianIncomes['F'][index - 1]) / 2
     else:
-        index = len(medianIncomes['F']) // 2
+        index = len_f // 2
         medianIncomes['F'] = medianIncomes['F'][index]
     return medianIncomes
     

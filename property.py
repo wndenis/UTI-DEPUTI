@@ -26,7 +26,6 @@ def quick_sort(arr, low, high):
 
 def region_real_estate(id):
     declarations = calc_region(id)
-
     estates = {}
     for dec in declarations:
         for prop in dec["real_estates"]:

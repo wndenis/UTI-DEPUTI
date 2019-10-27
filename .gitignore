@@ -3,3 +3,4 @@
 static/json/*.json
 static/faces/*.jpg
 **/*.json
+static/faces/

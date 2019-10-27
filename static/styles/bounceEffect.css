@@ -1,0 +1,73 @@
+.swipeAvaliable{
+    animation: animationFrames ease 1s;
+    animation-iteration-count: 1;
+    transform-origin: 50% 50%;
+    animation-fill-mode:forwards; /*when the spec is finished*/
+  }
+  
+  @keyframes swipeOutLeft{
+    0% {
+      opacity:1;
+      transform:  translate(0px,0px)  ;
+    }
+    20% {
+      opacity:1;
+      transform:  translate(20px,0px)  ;
+    }
+    100% {
+      opacity:0;
+      transform:  translate(-1000px,0px)  ;
+    }
+  }
+
+  @keyframes swipeInLeft{
+    0% {
+      opacity:0;
+      transform:  translate(-1000px,0px)  ;
+    }
+    60% {
+      opacity:1;
+      transform:  translate(30px,0px)  ;
+    }
+    80% {
+      transform:  translate(-10px,0px)  ;
+    }
+    100% {
+      opacity:1;
+      transform:  translate(0px,0px)  ;
+    }
+  }
+  @keyframes swipeOutRight{
+    0% {
+      opacity:1;
+      transform:  translate(0px,0px)  ;
+    }
+    20% {
+      opacity:1;
+      transform:  translate(-20px,0px)  ;
+    }
+    100% {
+      opacity:0;
+      transform:  translate(1000px,0px)  ;
+    }
+  }
+
+  @keyframes swipeInRight{
+    0% {
+      opacity:0;
+      transform:  translate(1000px,0px)  ;
+    }
+    60% {
+      opacity:1;
+      transform:  translate(-30px,0px)  ;
+    }
+    80% {
+      transform:  translate(10px,0px)  ;
+    }
+    100% {
+      opacity:1;
+      transform:  translate(0px,0px)  ;
+    }
+  }
+  
+  

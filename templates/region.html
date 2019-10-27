@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>My Personal Card</title>
+{#    <meta name="description" content="personal information about me">#}
+    <link rel="stylesheet" href={{ url_for('static', filename='styles/region.css') }}>
+    <link rel="stylesheet" href={{ url_for('static', filename='styles/bounceEffect.css') }}>
+    <script defer src={{ url_for('static', filename='js/region.js') }}></script>
+{% endblock %}
+
+{% block body %}
+    <!-- Start Top Header -->
+    <div class="top-header">
+        <a href="../index.html"><h2 class="logo">uti <span>deputi</span></h2></a>
+        <ul class="links">
+            <li class="active" id="midLinkId"><a >middle</a></li>
+            <li id="specLinkId"><a >special</a></li>
+            <li id="randLinkId"><a >random</a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <!-- End Top Header -->
+    <!-- Start Box Card -->
+    <div id="middleBoxCardId" class="box-card swipeAvaliable">
+        <!-- Start Head -->
+        <div class="head">
+            <div class="img-box">
+                <img src="{{ url_for('static', filename='average_faces/average_face.jpg') }}" alt="sayed picture">
+            </div>
+            <div class="info-box">
+                <h1>{{name}}</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End Head -->
+        <!-- Start Content -->
+        <div class="content">
+            <div class="user-info">
+                <div class="area">
+                    <div class="title">Gender</div>
+                    <div id="GenderId" class="value">{{gender}}</div>
+                </div>
+                <div class="area">
+                    <div class="title">Residence</div>
+                    <div id="ResidenceId" class="value">!!!</div>
+                </div>
+                <div class="area">
+                    <div class="title">Income</div>
+                    <div id="IncomeId" class="value">{{income}}</div>
+                </div>
+                <div class="area">
+                    <div class="title">Real estates</div>
+                    <div id="RealEstatesId" class="value">{{square}} M<sup>2</sup></div>
+                </div>
+                <div class="area">
+                    <div class="title">Vehicles</div>
+                    <div id="VehiclesId" class="value">!!!</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End Content -->
+    </div>
+
+
+    <div id="specialBoxCardId" class="box-card swipeAvaliable">
+        <!-- Start Head -->
+        <div class="head">
+            <div class="img-box">
+                <img src="http://lmpixels.com/wp/aveo/wp-content/uploads/2017/09/photo.png" alt="sayed picture">
+            </div>
+            <div class="info-box">
+                <h1>Овчаров Н.И.</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End Head -->
+        <!-- Start Content -->
+        <div class="content">
+            <div class="user-info">
+                <div class="area">
+                    <div class="title">Gender</div>
+                    <div id="GenderId" class="value">М</div>
+                </div>
+                <div class="area">
+                    <div class="title">Residence</div>
+                    <div id="ResidenceId" class="value">Курская область</div>
+                </div>
+                <div class="area">
+                    <div class="title">Income</div>
+                    <div id="IncomeId" class="value">2620798.04</div>
+                </div>
+                <div class="area">
+                    <div class="title">Real estates</div>
+                    <div id="RealEstatesId" class="value">7089.11</div>
+                </div>
+                <div class="area">
+                    <div class="title">Vehicles</div>
+                    <div id="VehiclesId" class="value">1</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End Content -->
+    </div>
+
+
+    <div id="randomBoxCardId" class="box-card swipeAvaliable">
+        <!-- Start Head -->
+        <div class="head">
+            <div class="img-box">
+                <img src="http://lmpixels.com/wp/aveo/wp-content/uploads/2017/09/photo.png" alt="sayed picture">
+            </div>
+            <div class="info-box">
+                <h1>Пуляевский Д.В.</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End Head -->
+        <!-- Start Content -->
+        <div class="content">
+            <div class="user-info">
+                <div class="area">
+                    <div class="title">Gender</div>
+                    <div id="GenderId" class="value">М</div>
+                </div>
+                <div class="area">
+                    <div class="title">Residence</div>
+                    <div id="ResidenceId" class="value">Ленинградская область</div>
+                </div>
+                <div class="area">
+                    <div class="title">Income</div>
+                    <div id="IncomeId" class="value">1.7M</div>
+                </div>
+                <div class="area">
+                    <div class="title">Real estates</div>
+                    <div id="RealEstatesId" class="value">3.5K</div>
+                </div>
+                <div class="area">
+                    <div class="title">Vehicles</div>
+                    <div id="VehiclesId" class="value">2</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End Content -->
+    </div>
+{% endblock %}
