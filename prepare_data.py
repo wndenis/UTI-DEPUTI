@@ -159,10 +159,31 @@ def calc_moves():
 
     return moves
 
-    # Print for debug
-    for destination in moves.keys():
-        for origin, occurances in moves[destination].items():
-            print(f"{destination} <-- {origin}: {occurances}")
+def calc_migration(id):
+    moves = calc_moves()
+    from_places = []
+    for origin, occurances in moves[id].items():
+        from_places.append({"id": origin, "count": occurances})
+    sorted_from = sorted(from_places, key=lambda kv: kv["count"], reverse=True)
+
+    i = 0
+    res_from = []
+    for origin in sorted_from:
+        res_from.append(origin["id"])
+        i += 1
+        if i == 3:
+            break
+    
+    i = 0
+    popular_dest = 0
+    popular_dest_max = 0
+    for dest, origin in moves.items():
+        if id in origin and origin[id] > popular_dest_max:
+            popular_dest_max = origin[id]
+            popular_dest = dest
+
+    return {"top_from": res_from, "top_to": popular_dest}
+
 
 # Create static/json/region.json file
 def make_region_file():
