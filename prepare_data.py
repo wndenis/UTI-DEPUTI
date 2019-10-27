@@ -312,6 +312,58 @@ def calc_region_gender_ids(idToSearch):
         people['F'] = []
     return people
 
+# return Median nubmer of real estates
+# by default its 0
+def calc_region_median_real_estates(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    median = []
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if 'real_estates' in elem:
+                median.append(len(elem['real_estates']))
+    median.sort()
+    if (len(median) == 0):
+        return 0
+
+    if (len(median) == 1):
+        return median[0]
+
+    if len(median) % 2 == 0:
+        index = len(median) // 2
+    else:
+        index = len(median) // 2
+        return median[index]
+
+# return Median nubmer of vehicle
+# by default its 0
+def calc_region_median_vehicle(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    median = []
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if 'vehicles' in elem:
+                median.append(len(elem['vehicles']))
+    median.sort()
+    if (len(median) == 0):
+        return 0
+
+    if (len(median) == 1):
+        return median[0]
+
+    if len(median) % 2 == 0:
+        index = len(median) // 2
+    else:
+        index = len(median) // 2
+        return median[index]
+
 
 male_vs_female = calc_disbalance()
 total_sums_by_year = calc_sum()
