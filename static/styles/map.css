@@ -1,0 +1,80 @@
+#us-map {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+path:hover, circle:hover {
+    stroke: #002868 !important;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+    fill: #002868 !important;
+    cursor: pointer;
+}
+
+#path67 {
+    fill: none !important;
+    stroke: #A9A9A9 !important;
+    cursor: default;
+}
+
+#info-box {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background-color: #ffffff;
+    border: 2px solid #86989B;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: SansSerif;
+}
+
+body {
+    background-color: #dddddd;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+    align: center;
+}
+
+.button2 {
+    background-color: #008CBA;
+}
+
+/* Blue */
+.button3 {
+    background-color: #f44336;
+}
+
+/* Red */
+.button4 {
+    background-color: #e7e7e7;
+    color: black;
+}
+
+/* Gray */
+.button5 {
+    background-color: #555555;
+}
+
+/* Black */

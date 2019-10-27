@@ -8,20 +8,22 @@ from average_face.extract import extract
 from average_face.average import average
 import os
 
+
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/index.html', methods=['GET', 'POST'])
+@app.route('/index.html/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 
 
-@app.route('/lesser_salary', methods=['GET', 'POST'])
-def salary():
-    return render_template('lesser_salary.html', years=total_sums_by_year[0], sums=total_sums_by_year[1])
-
-@app.route('/region/<int:id>', methods=['GET', 'POST'])
+@app.route('/region/<int:id>/', methods=['GET', 'POST'])
 def region(id):
+    print("FIO")
     xname = common_fio(id)
     if not xname:
         return render_template('404.html')
+
+    print("GENDERS")
     genders = prepare_data.calc_region_gender_ids(id)
     males = len(genders["M"])
     females = len(genders["F"])
@@ -59,7 +61,9 @@ def region(id):
     xsquare = f"{xsquare}"
 
     # ==========
-    region_people = genders["M"] + genders["F"]
+    region_people = calc_region(id)
+    region_people = {str(elem["main"]["person"]["id"]) for elem in region_people}
+    print(region_people)
     link = f"./static/average_faces/{id}.jpg"
     print(link)
     if not os.path.isfile(link):

@@ -39,8 +39,8 @@ def average(ids, region_id):
     print("AVERAGING")
     random.seed(32)
     # Read points for all images
-    for x in range(300):
-        ids.append(str(random.randint(0, 58129)))
+    # for x in range(300):
+    #     ids.append(str(random.randint(0, 58129)))
     all_points = read_points(path, ids)
     print(len(all_points))
     if len(all_points) < 1:

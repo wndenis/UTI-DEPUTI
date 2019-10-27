@@ -2,9 +2,9 @@ import json
 import os.path
 from datetime import datetime, date, time
 
-
+regions = dict()
 # with open("../declarations_sample.json", "r") as f:
-with open("static/json/dec.json", "r", encoding="utf-8") as f:
+with open("static/json/dec_full.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Calculate deputies' disbalance in income;
@@ -187,6 +187,8 @@ def calc_migration(id):
 
 # Create static/json/region.json file
 def make_region_file():
+    global regions
+    global data
     result = dict()
     for elem in data:
         if 'main' in elem:
@@ -229,6 +231,8 @@ def make_region_file():
                             result[regId].append(elem)
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
 
 # If field 'main''office''region''if' exist - True
 def checkIfRegionExist(elem):
@@ -240,11 +244,11 @@ def checkIfRegionExist(elem):
 
 # Calculate all deps in specific regions
 def calc_region(id):
+    global regions
     idToSearch = str(id)
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
-        regions = json.load(f)
+    print("+++++++++++++++", len(regions[idToSearch]))
     if idToSearch in regions.keys():
         return regions[idToSearch]
     else:
@@ -253,10 +257,9 @@ def calc_region(id):
 # Calc medians of female/male incomes of a specific region
 # return dict('M': income, 'F': income). Default values - 0
 def calc_region_income_gender(idToSearch):
+    global regions
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
-        regions = json.load(f)
     medianIncomes = {"M":[], "F":[]}
     idToSearch = str(idToSearch)
     if (idToSearch in regions.keys()):
@@ -322,10 +325,9 @@ def calcAllIncomes(elem):
 # Return dict with keys 'M', 'F' and values - Man's and Women's ids
 # in specific region
 def calc_region_gender_ids(idToSearch):
+    global regions
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
-        regions = json.load(f)
     people = dict()
     idToSearch = str(idToSearch)
     if (idToSearch in regions.keys()):
@@ -345,10 +347,9 @@ def calc_region_gender_ids(idToSearch):
 # return Median nubmer of real estates
 # by default its 0
 def calc_region_median_real_estates(idToSearch):
+    global regions
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
-        regions = json.load(f)
     median = []
     idToSearch = str(idToSearch)
     if (idToSearch in regions.keys()):
@@ -371,10 +372,10 @@ def calc_region_median_real_estates(idToSearch):
 # return Median nubmer of vehicle
 # by default its 0
 def calc_region_median_vehicle(idToSearch):
+    global regions
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
-        regions = json.load(f)
+
     median = []
     idToSearch = str(idToSearch)
     if (idToSearch in regions.keys()):
@@ -396,10 +397,9 @@ def calc_region_median_vehicle(idToSearch):
 
 # get the most rich person in region
 def find_most_rich_region(idToSearch):
+    global regions
     if (not os.path.exists('static/json/region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
-        regions = json.load(f)
     mostRich = None
     idToSearch = str(idToSearch)
     if (idToSearch in regions.keys()):
@@ -415,7 +415,10 @@ def find_most_rich_region(idToSearch):
 male_vs_female = calc_disbalance()
 total_sums_by_year = calc_sum()
 moves = calc_moves()
-
+if (not os.path.exists('static/json/region.json')):
+    make_region_file()
+with open("static/json/region.json", "r", encoding="utf-8") as f:
+    regions = json.load(f)
 # with open("static/json/disbalance.json", "w") as f:
 #     json.dump(calc_disbalance(), f)
 
@@ -424,7 +427,3 @@ moves = calc_moves()
 
 # with open("static/json/moves.json", "w") as f:
 #     json.dump(calc_moves(), f)
-
-
-
-print(len(calc_region(63)))
