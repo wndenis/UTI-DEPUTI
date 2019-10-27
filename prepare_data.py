@@ -200,6 +200,33 @@ def make_region_file():
                             result[regionId] = [elem]
                         else:
                             result[regionId].append(elem)
+                    else:
+                        regions = dict()
+                        # extended search ! ! !
+                        for house in elem['real_estates']:
+                            if house['region']:
+                                regId = house['region']['id']
+                                if regId in regions.keys():
+                                    regions[regId] = 1
+                                else:
+                                    regions[regId] += 1
+                        # no regions at all -> we can't add this person
+                        # so just iterate next
+                        if (len(regions) == 0):
+                            continue
+                        maxim = -1
+                        regId = -1
+                        for key, value in regions.items():
+                            if value > maxim:
+                                regId = key
+                                maxim = value
+                        # something went wrong
+                        if regId == -1:
+                            continue
+                        if regId not in result.keys():
+                            result[regId] = [elem]
+                        else:
+                            result[regId].append(elem)
     with open("static/json/region.json", "w") as f:
         json.dump(result, f)
 
