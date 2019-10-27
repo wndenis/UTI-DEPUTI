@@ -9,20 +9,22 @@
 #midLinkId, #specLinkId, #randLinkId{
   cursor: pointer;
 }
-#specialBoxCardId > .head{
+#specialBoxCardId > .head {
   background-color: #364fca;
 }
-#randomBoxCardId > .head{
+#randomBoxCardId > .head {
   background-color: #ca592e;
 }
+
 .user-info{
   display: grid;
   grid-template-columns: repeat(5,1fr);
+  grid-column-gap: 15px;
 }
 .area{
   display: grid;
   grid-template-rows: 2fr 8fr;
-  font-size: 20px;
+  font-size: 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #424242;
 }
@@ -121,19 +123,21 @@ body {
 /* Start Head */
 .box-card .head {
   background-color: #2eca7f;
-  padding: 50px;
+  padding: 20px;
+  height: 350px;
   background-image: url(http://lmpixels.com/wp/aveo/wp-content/uploads/2017/09/sp_main_bg.png);
   color: #FFF
 }
 
 .box-card .head .img-box {
   float: left;
-  width: 30%;
-  margin-right: 2%
+  width: 20%;
+  margin-right: 10%
 }
 
 .box-card .head .img-box img {
-  max-width: 100%;
+  max-width: 43vh;
+  margin-left: 15%;
   margin-bottom: -75px;
   padding: 3px;
   border: 1px solid #e9e9e9;
