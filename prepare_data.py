@@ -159,10 +159,31 @@ def calc_moves():
 
     return moves
 
-    # Print for debug
-    for destination in moves.keys():
-        for origin, occurances in moves[destination].items():
-            print(f"{destination} <-- {origin}: {occurances}")
+def calc_migration(id):
+    moves = calc_moves()
+    from_places = []
+    for origin, occurances in moves[id].items():
+        from_places.append({"id": origin, "count": occurances})
+    sorted_from = sorted(from_places, key=lambda kv: kv["count"], reverse=True)
+
+    i = 0
+    res_from = []
+    for origin in sorted_from:
+        res_from.append(origin["id"])
+        i += 1
+        if i == 3:
+            break
+    
+    i = 0
+    popular_dest = 0
+    popular_dest_max = 0
+    for dest, origin in moves.items():
+        if id in origin and origin[id] > popular_dest_max:
+            popular_dest_max = origin[id]
+            popular_dest = dest
+
+    return {"top_from": res_from, "top_to": popular_dest}
+
 
 # Create static/json/region.json file
 def make_region_file():
@@ -293,6 +314,75 @@ def calc_region_gender_ids(idToSearch):
     if ('F' not in people.keys()):
         people['F'] = []
     return people
+
+# return Median nubmer of real estates
+# by default its 0
+def calc_region_median_real_estates(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    median = []
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if 'real_estates' in elem:
+                median.append(len(elem['real_estates']))
+    median.sort()
+    if (len(median) == 0):
+        return 0
+
+    if (len(median) == 1):
+        return median[0]
+
+    if len(median) % 2 == 0:
+        index = len(median) // 2
+    else:
+        index = len(median) // 2
+        return median[index]
+
+# return Median nubmer of vehicle
+# by default its 0
+def calc_region_median_vehicle(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    median = []
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            if 'vehicles' in elem:
+                median.append(len(elem['vehicles']))
+    median.sort()
+    if (len(median) == 0):
+        return 0
+
+    if (len(median) == 1):
+        return median[0]
+
+    if len(median) % 2 == 0:
+        index = len(median) // 2
+    else:
+        index = len(median) // 2
+        return median[index]
+
+# get the most rich person in region
+def find_most_rich_region(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    mostRich = None
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            income = calcAllIncomes(elem)
+            if mostRich is None:
+                mostRich = elem
+            elif calcAllIncomes(mostRich) < income:
+                mostRich = elem
+    return mostRich
 
 
 male_vs_female = calc_disbalance()
