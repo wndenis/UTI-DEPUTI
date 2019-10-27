@@ -6,6 +6,7 @@ import prepare_data
 import property as prop
 from average_face.extract import extract
 from average_face.average import average
+import os
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -32,7 +33,7 @@ def region(id):
     male_income = incomes["M"]
     xmedian_income = (female_income + male_income) / 2
     k = len(str(int(xmedian_income)))
-    print("MEDIAN: %s\nK: %s" % (xmedian_income, k))
+    # print("MEDIAN: %s\nK: %s" % (xmedian_income, k))
     suffix = ""
     if k > 3:
         k = 1
@@ -49,7 +50,6 @@ def region(id):
 
     if k > 0:
         xmedian_income /= 1000 ** k
-    print(xmedian_income)
     xmedian_income = "%.2f%s" % (xmedian_income, suffix)
 
     xsquare = prop.med_region_real_estate(id)
@@ -60,13 +60,20 @@ def region(id):
 
     # ==========
     region_people = genders["M"] + genders["F"]
-    extract()
-
-
+    link = f"./static/average_faces/{id}.jpg"
+    print(link)
+    print(os.path.isfile(link))
+    if not os.path.isfile(link):
+        extract()
+        photo = average(region_people, id)
+        if not photo:
+            link = "default_profile_photo.png"
+        else:
+            link = f"/average_faces/{id}.jpg"
     # make photo
 
 
-    return render_template('region.html', region_id=id, name=xname, gender=xgender, income=xmedian_income, square=xsquare)
+    return render_template('region.html', region_id=id, name=xname, gender=xgender, income=xmedian_income, square=xsquare, photo=link)
 
 if __name__ == "__main__":
     app.run(debug=True)

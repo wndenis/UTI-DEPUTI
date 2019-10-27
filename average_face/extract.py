@@ -22,10 +22,10 @@ def extract(rewrite_existing=False):
     # predictor_path = sys.argv[1]
     # faces_folder_path = sys.argv[2]
 
-    # predictor_path = "./average_face/shape_predictor_68_face_landmarks.dat"
-    # faces_folder_path = "static/faces"
-    predictor_path = "shape_predictor_68_face_landmarks.dat"
-    faces_folder_path = "../static/faces"
+    predictor_path = "./average_face/shape_predictor_68_face_landmarks.dat"
+    faces_folder_path = "static/faces"
+    # predictor_path = "shape_predictor_68_face_landmarks.dat"
+    # faces_folder_path = "../static/faces"
 
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(predictor_path)
@@ -40,9 +40,9 @@ def extract(rewrite_existing=False):
     c = -1
     for f in glob.glob(os.path.join(faces_folder_path, "*.jpg")):
         c += 1
-        print("Processing file: {}".format(f))
+        # print("Processing file: {}".format(f))
         if os.path.isfile(f + ".txt") and not rewrite_existing:
-            print("Exist, skipping")
+            # print("Exist, skipping")
             continue
         try:
             img = io.imread(f)
@@ -83,4 +83,3 @@ def extract(rewrite_existing=False):
                 output.write("\n")
         print(f"Processed {c} images")
 
-extract()

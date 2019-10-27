@@ -20,25 +20,29 @@ import numpy as np
 #     exit()
 
 
-def average(ids):
+def average(ids, region_id):
     # Default size of the output image
     w = 170
     h = 240
 
     # Overwrite default image size
-    if len(sys.argv) == 3:
-        if str.isdigit(sys.argv[2]):
-            w = 300
-        if str.isdigit(sys.argv[3]):
-            h = 300
+    # if len(sys.argv) == 3:
+    #     if str.isdigit(sys.argv[2]):
+    #         w = 300
+    #     if str.isdigit(sys.argv[3]):
+    #         h = 300
 
     # path = sys.argv[1]
-    path = "static/faces/"
+    path = "./static/faces/"
 
     # Read points for all images
-    all_points = read_points(path)
+    all_points = read_points(path, ids)
+    if len(all_points) < 1:
+        return False
     # Read all images
-    images = read_images(path)
+    images = read_images(path, ids)
+    if len(images) < 1:
+        return False
 
     # Eye corners
     eyecorner_dst = [
@@ -131,18 +135,23 @@ def average(ids):
     # cv2.imshow('image', output)
     # cv2.waitKey(0)
     # Saving result
-    cv2.imwrite("static/average_faces/ID.jpg", 255 * output)
+    cv2.imwrite(f"/static/average_faces/{region_id}.jpg", 255 * output)
+    # cv2.imwrite("ID.jpg", 255 * output)
+    return True
 
 
 # Read points from text files in directory
-def read_points(path):
+def read_points(path, ids):
     # Create an array of array of points.
     points_array = []
 
     # List all files in the directory and read points from text files one by one
     for file_path in sorted(os.listdir(path)):
-        print(file_path)
 
+        n = file_path.split("_")[1].split(".")[0]
+        if n not in ids:
+            continue
+        print(file_path)
         if file_path.endswith('.txt'):
             # Create an array of points.
             points = []
@@ -160,12 +169,15 @@ def read_points(path):
 
 
 # Read all jpg images in folder.
-def read_images(path):
+def read_images(path, ids):
     # Create array of array of images.
     images_array = []
 
     # List all files in the directory and read points from text files one by one
     for file_path in sorted(os.listdir(path)):
+        n = file_path.split("_")[1].split(".")[0]
+        if n not in ids:
+            continue
         if file_path.endswith('.jpg'):
             # Read image found.
             img = cv2.imread(os.path.join(path, file_path))
@@ -310,3 +322,4 @@ def warp_triangle(img1, img2, t1, t2):
     img2[r2[1]:r2[1] + r2[3], r2[0]:r2[0] + r2[2]] = img2[r2[1]:r2[1] + r2[3], r2[0]:r2[0] + r2[2]] * (
                 (1.0, 1.0, 1.0) - mask)
     img2[r2[1]:r2[1] + r2[3], r2[0]:r2[0] + r2[2]] = img2[r2[1]:r2[1] + r2[3], r2[0]:r2[0] + r2[2]] + img2_rect
+
