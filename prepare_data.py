@@ -192,7 +192,7 @@ def make_region_file():
         if 'main' in elem:
             # check if it's a valid year
             if 'year' in elem['main']:
-                todayYear = datetime.now().year - 2
+                todayYear = datetime.now().year - 6
                 if (elem['main']['year'] >= todayYear):
                     if checkIfRegionExist(elem):
                         regionId = elem['main']['office']['region']['id']

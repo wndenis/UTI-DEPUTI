@@ -62,14 +62,16 @@ def region(id):
     region_people = genders["M"] + genders["F"]
     link = f"./static/average_faces/{id}.jpg"
     print(link)
-    print(os.path.isfile(link))
     if not os.path.isfile(link):
+        link = f"average_faces/{id}.jpg"
         extract()
         photo = average(region_people, id)
+        print(photo)
         if not photo:
             link = "default_profile_photo.png"
-        else:
-            link = f"/average_faces/{id}.jpg"
+    else:
+        link = f"average_faces/{id}.jpg"
+    print(link)
     # make photo
 
 

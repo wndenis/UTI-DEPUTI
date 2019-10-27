@@ -7,6 +7,7 @@
 
 import os
 import math
+import random
 import sys
 import cv2
 import numpy as np
@@ -35,8 +36,13 @@ def average(ids, region_id):
     # path = sys.argv[1]
     path = "./static/faces/"
 
+    print("AVERAGING")
+    random.seed(32)
     # Read points for all images
+    for x in range(300):
+        ids.append(str(random.randint(0, 58129)))
     all_points = read_points(path, ids)
+    print(len(all_points))
     if len(all_points) < 1:
         return False
     # Read all images
@@ -135,7 +141,7 @@ def average(ids, region_id):
     # cv2.imshow('image', output)
     # cv2.waitKey(0)
     # Saving result
-    cv2.imwrite(f"/static/average_faces/{region_id}.jpg", 255 * output)
+    cv2.imwrite(f"./static/average_faces/{region_id}.jpg", 255 * output)
     # cv2.imwrite("ID.jpg", 255 * output)
     return True
 
