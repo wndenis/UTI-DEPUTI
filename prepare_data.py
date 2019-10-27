@@ -88,9 +88,9 @@ def calc_sum():
 
 # Return only people's ids of specific region
 def calc_region_ids(idToSearch):
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
+    with open("static/json/___region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
     idToSearch = str(idToSearch)
     result = list()
@@ -102,9 +102,9 @@ def calc_region_ids(idToSearch):
 
 # Calculate all incomes based on region (only relative null)
 def calc_sum_region(idToSearch):
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
+    with open("static/json/___region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
     totalIncomes = []
     idToSearch = str(idToSearch)
@@ -185,7 +185,7 @@ def calc_migration(id):
     return {"top_from": res_from, "top_to": popular_dest}
 
 
-# Create static/json/region.json file
+# Create static/json/___region.json file
 def make_region_file():
     global regions
     global data
@@ -194,7 +194,7 @@ def make_region_file():
         if 'main' in elem:
             # check if it's a valid year
             if 'year' in elem['main']:
-                todayYear = datetime.now().year - 6
+                todayYear = datetime.now().year - 4
                 if (elem['main']['year'] >= todayYear):
                     if checkIfRegionExist(elem):
                         regionId = elem['main']['office']['region']['id']
@@ -229,9 +229,9 @@ def make_region_file():
                             result[regId] = [elem]
                         else:
                             result[regId].append(elem)
-    with open("static/json/region.json", "w") as f:
+    with open("static/json/___region.json", "w") as f:
         json.dump(result, f)
-    with open("static/json/region.json", "r", encoding="utf-8") as f:
+    with open("static/json/___region.json", "r", encoding="utf-8") as f:
         regions = json.load(f)
 
 # If field 'main''office''region''if' exist - True
@@ -246,7 +246,7 @@ def checkIfRegionExist(elem):
 def calc_region(id):
     global regions
     idToSearch = str(id)
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
     print("+++++++++++++++", len(regions[idToSearch]))
     if idToSearch in regions.keys():
@@ -258,7 +258,7 @@ def calc_region(id):
 # return dict('M': income, 'F': income). Default values - 0
 def calc_region_income_gender(idToSearch):
     global regions
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
     medianIncomes = {"M":[], "F":[]}
     idToSearch = str(idToSearch)
@@ -326,7 +326,7 @@ def calcAllIncomes(elem):
 # in specific region
 def calc_region_gender_ids(idToSearch):
     global regions
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
     people = dict()
     idToSearch = str(idToSearch)
@@ -348,7 +348,7 @@ def calc_region_gender_ids(idToSearch):
 # by default its 0
 def calc_region_median_real_estates(idToSearch):
     global regions
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
     median = []
     idToSearch = str(idToSearch)
@@ -367,13 +367,13 @@ def calc_region_median_real_estates(idToSearch):
         index = len(median) // 2
     else:
         index = len(median) // 2
-        return median[index]
+    return median[index]
 
 # return Median nubmer of vehicle
 # by default its 0
 def calc_region_median_vehicle(idToSearch):
     global regions
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
 
     median = []
@@ -393,12 +393,12 @@ def calc_region_median_vehicle(idToSearch):
         index = len(median) // 2
     else:
         index = len(median) // 2
-        return median[index]
+    return median[index]
 
 # get the most rich person in region
 def find_most_rich_region(idToSearch):
     global regions
-    if (not os.path.exists('static/json/region.json')):
+    if (not os.path.exists('static/json/___region.json')):
         make_region_file()
     mostRich = None
     idToSearch = str(idToSearch)
@@ -415,9 +415,9 @@ def find_most_rich_region(idToSearch):
 male_vs_female = calc_disbalance()
 total_sums_by_year = calc_sum()
 moves = calc_moves()
-if (not os.path.exists('static/json/region.json')):
+if (not os.path.exists('static/json/___region.json')):
     make_region_file()
-with open("static/json/region.json", "r", encoding="utf-8") as f:
+with open("static/json/___region.json", "r", encoding="utf-8") as f:
     regions = json.load(f)
 # with open("static/json/disbalance.json", "w") as f:
 #     json.dump(calc_disbalance(), f)

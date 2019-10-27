@@ -52,12 +52,16 @@ def region(id):
 
     if k > 0:
         xmedian_income /= 1000 ** k
-    xmedian_income = "%.1f%s" % (xmedian_income, suffix)
+    xmedian_income = "₽%.1f %s" % (xmedian_income, suffix)
 
     xsquare = prop.med_region_real_estate(id)
 
     # temp
-    xsquare = list(xsquare.values())[0]
+    if 4 in xsquare:
+        xsquare = xsquare[4]
+    else:
+        xsquare = list(xsquare.values())[0]
+
     xsquare = "%.0f" % xsquare
 
     # ==========
