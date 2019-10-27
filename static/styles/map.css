@@ -31,11 +31,12 @@ path:hover, circle:hover {
     border: 2px solid #86989B;
     border-radius: 5px;
     padding: 5px;
-    font-family: SansSerif;
+    font-family: Tahoma;
 }
 
 body {
     background-color: #dddddd;
+    font-family: Tahoma, serif;
 }
 
 .button {

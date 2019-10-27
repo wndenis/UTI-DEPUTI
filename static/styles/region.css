@@ -142,12 +142,13 @@ body {
 }
 
 .box-card .head .img-box img {
-  max-width: 43vh;
-  margin-left: 15%;
+  max-width: 50vh;
+  margin-left: 35%;
   margin-bottom: -75px;
   padding: 3px;
   border: 1px solid #e9e9e9;
-  background-color: #FFF
+  background-color: #FFF;
+  height: 50%;
 }
 /*
 .box-card .head .img-box img:hover {
