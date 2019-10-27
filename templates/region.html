@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>My Personal Card</title>
-{#    <meta name="description" content="personal information about me">#}
+    <title>Mean profile</title>
+    {#    <meta name="description" content="personal information about me">#}
     <link rel="stylesheet" href={{ url_for('static', filename='styles/region.css') }}>
     <link rel="stylesheet" href={{ url_for('static', filename='styles/bounceEffect.css') }}>
-    <script defer src={{ url_for('static', filename='js/region.js') }}></script>
+    <script defer src={{ url_for('static', filename='js/fontawesome/js/all.js') }}></script>
+    <script defer src={{ url_for('static', filename='js/script.js') }}></script>
+
 {% endblock %}
 
 {% block body %}
@@ -13,9 +15,9 @@
     <div class="top-header">
         <a href="../../index.html"><h2 class="logo">uti <span>deputi</span></h2></a>
         <ul class="links">
-            <li class="active" id="midLinkId"><a >middle</a></li>
-            <li id="specLinkId"><a >special</a></li>
-            <li id="randLinkId"><a >random</a></li>
+            <li class="active" id="midLinkId"><a>middle</a></li>
+            <li id="specLinkId"><a>special</a></li>
+            <li id="randLinkId"><a>random</a></li>
         </ul>
         <div class="clearfix"></div>
     </div>
@@ -28,7 +30,8 @@
                 <img src="{{ url_for('static', filename=photo) }}" alt="sayed picture">
             </div>
             <div class="info-box">
-                <h1>{{name}}</h1>
+                <h1>{{ name }}</h1>
+                <h2>{{ region_name }}</h2>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -37,24 +40,24 @@
         <div class="content">
             <div class="user-info">
                 <div class="area">
+                    <i class="fas fa-venus-mars fa-2x"></i>
                     <div class="title">Gender</div>
-                    <div id="GenderId" class="value">{{gender}}</div>
+                    <div id="GenderId" class="value">{{ gender }}</div>
                 </div>
                 <div class="area">
-                    <div class="title">Residence</div>
-                    <div id="ResidenceId" class="value">!!!</div>
-                </div>
-                <div class="area">
+                    <i class="far fa-money-bill-alt fa-2x"></i>
                     <div class="title">Income</div>
-                    <div id="IncomeId" class="value">{{income}}</div>
+                    <div id="IncomeId" class="value">{{ income }}</div>
                 </div>
                 <div class="area">
+                    <i class="fas fa-home fa-2x"></i>
                     <div class="title">Real estates</div>
-                    <div id="RealEstatesId" class="value">{{square}} M<sup>2</sup></div>
+                    <div id="RealEstatesId" class="value">{{ square }} M<sup>2</sup></div>
                 </div>
                 <div class="area">
+                    <i class="fas fa-car fa-2x"></i>
                     <div class="title">Vehicles</div>
-                    <div id="VehiclesId" class="value">!!!</div>
+                    <div id="VehiclesId" class="value">{{ vehicles }}</div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -62,8 +65,7 @@
         <!-- End Content -->
     </div>
 
-
-    <div id="specialBoxCardId" class="box-card swipeAvaliable">
+    <div id="specialBoxCardId" style="display: none;" class="box-card swipeAvaliable">
         <!-- Start Head -->
         <div class="head">
             <div class="img-box">
@@ -71,6 +73,7 @@
             </div>
             <div class="info-box">
                 <h1>Овчаров Н.И.</h1>
+                <h2>Moscow</h2>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -79,22 +82,22 @@
         <div class="content">
             <div class="user-info">
                 <div class="area">
+                    <i class="fas fa-venus-mars fa-2x"></i>
                     <div class="title">Gender</div>
-                    <div id="GenderId" class="value">М</div>
+                    <div id="GenderId" class="value">M</div>
                 </div>
                 <div class="area">
-                    <div class="title">Residence</div>
-                    <div id="ResidenceId" class="value">Курская область</div>
-                </div>
-                <div class="area">
+                    <i class="far fa-money-bill-alt fa-2x"></i>
                     <div class="title">Income</div>
-                    <div id="IncomeId" class="value">2620798.04</div>
+                    <div id="IncomeId" class="value">3</div>
                 </div>
                 <div class="area">
+                    <i class="fas fa-home fa-2x"></i>
                     <div class="title">Real estates</div>
-                    <div id="RealEstatesId" class="value">7089.11</div>
+                    <div id="RealEstatesId" class="value">2</div>
                 </div>
                 <div class="area">
+                    <i class="fas fa-car fa-2x"></i>
                     <div class="title">Vehicles</div>
                     <div id="VehiclesId" class="value">1</div>
                 </div>
@@ -105,7 +108,7 @@
     </div>
 
 
-    <div id="randomBoxCardId" class="box-card swipeAvaliable">
+    <div id="randomBoxCardId" style="display: none;" class="box-card swipeAvaliable">
         <!-- Start Head -->
         <div class="head">
             <div class="img-box">
@@ -113,6 +116,7 @@
             </div>
             <div class="info-box">
                 <h1>Пуляевский Д.В.</h1>
+                <h2>Moscow</h2>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -121,24 +125,24 @@
         <div class="content">
             <div class="user-info">
                 <div class="area">
+                    <i class="fas fa-venus-mars fa-2x"></i>
                     <div class="title">Gender</div>
-                    <div id="GenderId" class="value">М</div>
+                    <div id="GenderId" class="value">M</div>
                 </div>
                 <div class="area">
-                    <div class="title">Residence</div>
-                    <div id="ResidenceId" class="value">Ленинградская область</div>
-                </div>
-                <div class="area">
+                    <i class="far fa-money-bill-alt fa-2x"></i>
                     <div class="title">Income</div>
-                    <div id="IncomeId" class="value">1.7M</div>
+                    <div id="IncomeId" class="value">3</div>
                 </div>
                 <div class="area">
+                    <i class="fas fa-home fa-2x"></i>
                     <div class="title">Real estates</div>
-                    <div id="RealEstatesId" class="value">3.5K</div>
+                    <div id="RealEstatesId" class="value">2</div>
                 </div>
                 <div class="area">
+                    <i class="fas fa-car fa-2x"></i>
                     <div class="title">Vehicles</div>
-                    <div id="VehiclesId" class="value">2</div>
+                    <div id="VehiclesId" class="value">1</div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -146,3 +150,4 @@
         <!-- End Content -->
     </div>
 {% endblock %}
+

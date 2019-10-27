@@ -20,13 +20,14 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\average_face" />
-      <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\static\average_faces" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\static" />
       <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\static\js" />
+      <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\average_face" />
+      <recent name="D:\ProgrammingProj\P\UTI-DEPUTI\static\average_faces" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -128,7 +129,7 @@
       <workItem from="1572107717215" duration="3142000" />
       <workItem from="1572119983979" duration="462000" />
       <workItem from="1572120516662" duration="16575000" />
-      <workItem from="1572149189475" duration="5494000" />
+      <workItem from="1572149189475" duration="7321000" />
     </task>
     <servers />
   </component>
@@ -148,20 +149,9 @@
       </map>
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/property.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UTI_DEPUTI$average.coverage" NAME="average Coverage Results" MODIFIED="1572143317814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/average_face" />
     <SUITE FILE_PATH="coverage/UTI_DEPUTI$extract.coverage" NAME="extract Coverage Results" MODIFIED="1572141793746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/average_face" />
-    <SUITE FILE_PATH="coverage/UTI_DEPUTI$UTI_DEPUTI.coverage" NAME="UTI-DEPUTI Coverage Results" MODIFIED="1572153774839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UTI_DEPUTI$UTI_DEPUTI.coverage" NAME="UTI-DEPUTI Coverage Results" MODIFIED="1572155661635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
