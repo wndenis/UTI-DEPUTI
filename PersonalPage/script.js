@@ -1,7 +1,5 @@
 window.onload = function () {
     localStorage.setItem("location", "middle");
-    document.getElementById("specialBoxCardId").style.display = "none";
-    document.getElementById("randomBoxCardId").style.display = "none";
 }
 document.getElementById("midLinkId").onclick = function () {
     if (localStorage.getItem("location") === "middle") {

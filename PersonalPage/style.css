@@ -18,12 +18,12 @@
 
 .user-info{
   display: grid;
-  grid-template-columns: repeat(5,1fr);
+  grid-template-columns: repeat(4,1fr);
   grid-column-gap: 15px;
 }
 .area{
   display: grid;
-  grid-template-rows: 2fr 8fr;
+  grid-template-rows: 1fr 2fr;
   font-size: 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #424242;
