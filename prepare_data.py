@@ -364,6 +364,23 @@ def calc_region_median_vehicle(idToSearch):
         index = len(median) // 2
         return median[index]
 
+# get the most rich person in region
+def find_most_rich_region(idToSearch):
+    if (not os.path.exists('static/json/region.json')):
+        make_region_file()
+    with open("static/json/region.json", "r", encoding="utf-8") as f:
+        regions = json.load(f)
+    mostRich = None
+    idToSearch = str(idToSearch)
+    if (idToSearch in regions.keys()):
+        for elem in regions[idToSearch]:
+            income = calcAllIncomes(elem)
+            if mostRich is None:
+                mostRich = elem
+            elif calcAllIncomes(mostRich) < income:
+                mostRich = elem
+    return mostRich
+
 
 male_vs_female = calc_disbalance()
 total_sums_by_year = calc_sum()
