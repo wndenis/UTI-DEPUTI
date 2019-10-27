@@ -206,7 +206,7 @@ def make_region_file():
                         for house in elem['real_estates']:
                             if house['region']:
                                 regId = house['region']['id']
-                                if regId in regions.keys():
+                                if regId not in regions.keys():
                                     regions[regId] = 1
                                 else:
                                     regions[regId] += 1
@@ -424,3 +424,7 @@ moves = calc_moves()
 
 # with open("static/json/moves.json", "w") as f:
 #     json.dump(calc_moves(), f)
+
+
+
+print(len(calc_region(63)))
