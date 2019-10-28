@@ -37,18 +37,23 @@ def region(id):
     k = len(str(int(xmedian_income)))
     # print("MEDIAN: %s\nK: %s" % (xmedian_income, k))
     suffix = ""
-    if k > 3:
-        k = 1
-        suffix = "K"
-    if k > 6:
-        k = 2
-        suffix = "M"
-    if k > 9:
-        k = 3
-        suffix = "B"
-    if k > 12:
+    if k >= 12:
         k = 4
         suffix = "T"
+
+    elif k >= 9:
+        k = 3
+        suffix = "B"
+
+    elif k >= 6:
+        k = 2
+        suffix = "M"
+
+    elif k >= 3:
+        k = 1
+        suffix = "K"
+
+
 
     if k > 0:
         xmedian_income /= 1000 ** k
