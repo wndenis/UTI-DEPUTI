@@ -447,7 +447,7 @@ def region(id):
     return render_template('region.html', region_id=id, name=xname, gender=xgender, income=xmedian_income, square=xsquare, photo=link, region_name=xreg, vehicles=xvehicle)
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0", port=5554)
 
 # средниее по региону
 # пенсия
