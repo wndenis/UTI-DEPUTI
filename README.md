@@ -1,7 +1,7 @@
 # UTI-DEPUTI
 48 hours project for HACK.MOSCOW V3.0 hackathon in **Data visualisation**
 
-LIVE DEMO: http://utideputi.wndenis.space/ (Design is a bit messy, but it works!)
+LIVE DEMO: temporarily unavailable (Design is a bit messy, but it works!)
 
 ---
 Our application focused on visualizing the most common human in every region of Russian Federation. We can show you the most medianized profile with such data - most popular name, median incomes, real estate square, gender and how the most common person looks like.
